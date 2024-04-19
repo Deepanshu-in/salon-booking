@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT;
 
 const corsOptions = {
-  origin: true,
+  origin: "https://salon-booking-wheat.vercel.app",
 };
 
 app.get("/", (req, res) => {
