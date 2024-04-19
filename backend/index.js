@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT;
 
 const corsOptions = {
-  origin: "https://salon-booking-wheat.vercel.app",
+  origin: true,
 };
 
 app.get("/", (req, res) => {
@@ -36,10 +36,10 @@ const connectDB = async () => {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
-app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/users", userRoute);
-app.use("/api/v1/salons", salonRoute);
-app.use("/api/v1/reviews", reviewRoute);
+app.use("/auth", authRoute);
+app.use("/users", userRoute);
+app.use("/salons", salonRoute);
+app.use("/reviews", reviewRoute);
 
 app.listen(port, () => {
   connectDB();
