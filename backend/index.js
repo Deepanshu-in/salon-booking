@@ -10,7 +10,6 @@ import reviewRoute from "./Routes/review.js";
 
 dotenv.config();
 const app = express();
-const cors = require("cors");
 // const port = process.env.PORT || 8000;
 
 const corsOptions = {
@@ -42,11 +41,11 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/salons", salonRoute);
 app.use("/api/v1/reviews", reviewRoute);
 
-// app.listen(port, () => {
-//   connectDB();
-//   // console.log("App server running at port : " + port);
-// });
-
-app.listen(() => {
+app.listen(port, () => {
   connectDB();
+  // console.log("App server running at port : " + port);
 });
+
+// app.listen(() => {
+//   connectDB();
+// });
