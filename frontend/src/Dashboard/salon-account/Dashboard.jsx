@@ -8,8 +8,6 @@ import starIcon from "../../assets/images/Star.png";
 import SalonAbout from "../../pages/Salons/SalonAbout";
 import Profile from "./Profile.jsx";
 import Appointments from "./Appointments.jsx";
-
-import { token } from "../../../config";
 import Tabs from "./Tabs.jsx";
 
 const Dashboard = () => {

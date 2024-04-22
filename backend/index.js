@@ -42,7 +42,7 @@ app.use("/api/v1/salons", salonRoute);
 app.use("/api/v1/reviews", reviewRoute);
 app.listen(port, () => {
   connectDB();
-  // console.log("App server running at port : " + port);
+  console.log("App server running at port : " + port);
 });
 
 // app.listen(() => {
