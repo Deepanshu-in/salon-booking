@@ -52,7 +52,7 @@ const Dashboard = () => {
                         <div className="flex items-center gap-[6px]">
                           <span className="flex items-center gap-[6px] text-headingColor text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-semibold">
                             <img src={starIcon} />
-                            {data.averageRating.toFixed(2)}
+                            {data.averageRating}
                           </span>
                           <span className="text-textColor text-[14px] leading-5 lg:text-[16px] lg:leading-7 font-semibold">
                             ({data.totalRating})
