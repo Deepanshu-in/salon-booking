@@ -28,7 +28,7 @@ const SalonCard = ({ salon }) => {
           <div className="flex items-center gap-[6px]">
             <span className="flex items-center gap-[6px] text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-semibold text-headingColor">
               <img src={starIcon} />
-              {averageRating}
+              {averageRating.toFixed(2)}
             </span>
             <span className="text-[14px] leading-6 lg:text-[16px] lg:leading-7  text-headingColor">
               ({totalRating})

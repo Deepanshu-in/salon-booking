@@ -86,7 +86,7 @@ const Header = () => {
                     role === "salon" ? "/salons/profile/me" : "users/profile/me"
                   }`}
                 >
-                  <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                  <figure className="w-[45px] h-[45px] rounded-full cursor-pointer border border-primaryColor flex items-center bg-white">
                     <img
                       className="w-full rounded-full"
                       src={user.photo ? user.photo : userImg}

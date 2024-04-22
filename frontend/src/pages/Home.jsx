@@ -1,6 +1,7 @@
 import heroimg01 from "../assets/images/heroimg01.jpg";
 import heroimg02 from "../assets/images/heroimg02.jpg";
 import heroimg03 from "../assets/images/heroimg03.jpg";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -17,16 +18,21 @@ const Home = () => {
                     Why wait in queue when we are here !
                   </h1>
                   <p className="text__para">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    Welcome to our salon appointment website! Discover the
+                    ultimate convenience in scheduling your next pampering
+                    session with us. Say goodbye to long waits on hold or trying
+                    to find the perfect time in your busy schedule. Our
+                    user-friendly interface makes booking your appointment a
+                    breeze. Simply browse our available services, select your
+                    preferred date and time, and voila! You're all set to
+                    indulge in a rejuvenating experience at our salon. With just
+                    a few clicks, you can embark on your journey to relaxation
+                    and beauty. Experience the ease and efficiency of our online
+                    booking system today!
                   </p>
-                  <button className="btn">Book an Appointment</button>
+                  <Link to="/salons">
+                    <button className="btn">Book an Appointment</button>
+                  </Link>
                 </div>
 
                 {/* hero counter */}

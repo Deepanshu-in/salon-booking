@@ -42,8 +42,7 @@ const Footer = () => {
       <div className="container">
         <div className="flex flex-col justify-between md:flex-row flex-wrap gap-[30px]">
           <div>
-            {/* <img src={logo}></img> */}
-            <h1>Logo</h1>
+            <img src={logo} className="w-[100px] h-[70px]"></img>
             <p className=" text-[16px] leading-7 font-[400] text-textColor mt-4">
               Copyright &copy;{year} developed by Deepanshu all rights reserved.
             </p>
