@@ -14,33 +14,35 @@ import { Routes, Route } from "react-router-dom";
 
 const Routers = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Signup />} />
-      <Route path="/services" element={<Services />} />
-      <Route path="/salons" element={<Salons />} />
-      <Route path="/salons/:id" element={<SalonsDetails />} />
-      <Route path="/barber" element={<Barber />} />
-      <Route path="/barber/:id" element={<BarberDetails />} />
-      <Route
-        path="/users/profile/me"
-        element={
-          <ProtectedRoutes allowedRoles={["customer"]}>
-            <MyAccount />
-          </ProtectedRoutes>
-        }
-      />
-      <Route
-        path="/salons/profile/me"
-        element={
-          <ProtectedRoutes allowedRoles={["salon"]}>
-            <Dashboard />
-          </ProtectedRoutes>
-        }
-      />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/salons" element={<Salons />} />
+        <Route path="/salons/:id" element={<SalonsDetails />} />
+        <Route path="/barber" element={<Barber />} />
+        <Route path="/barber/:id" element={<BarberDetails />} />
+        <Route
+          path="/users/profile/me"
+          element={
+            <ProtectedRoutes allowedRoles={["customer"]}>
+              <MyAccount />
+            </ProtectedRoutes>
+          }
+        />
+        <Route
+          path="/salons/profile/me"
+          element={
+            <ProtectedRoutes allowedRoles={["salon"]}>
+              <Dashboard />
+            </ProtectedRoutes>
+          }
+        />
+      </Routes>
+    </>
   );
 };
 

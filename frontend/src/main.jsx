@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Analytics } from "@vercel/analytics/react";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
+import ScrollToTop from "./utils/ScrollToTop.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           closeOnClick
           pauseOnHover={false}
         />
+        <ScrollToTop />
         <App />
       </AuthContextProvider>
     </BrowserRouter>
