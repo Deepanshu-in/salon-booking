@@ -70,10 +70,10 @@ const SidePanel = ({ services, timeSlots }) => {
             setShow={handleClose}
           />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col justify-between gap-2">
           <p className="text_para mt-0 font-semibold">Choose your Slot :</p>
           {/* dropdowm menu */}
-          <div className="relative flex flex-col items-center">
+          <div className="flex flex-col items-center border border-primaryColor rounded-lg p-2 bg-[#374151] text-white">
             <button
               className="flex flex-row items-center gap-2"
               onClick={() => setdropShow((prev) => !prev)}
@@ -84,11 +84,11 @@ const SidePanel = ({ services, timeSlots }) => {
               </span>
             </button>
             {dropShow && (
-              <div className="absolute top-6 flex flex-col gap-1">
+              <div className="top-6 flex flex-col gap-2 w-full mt-2 justify-center ">
                 {timeSlots.map((item, index) => (
-                  <div key={index} className=" ml-14">
+                  <div key={index}>
                     <button
-                      className="bg-white w-full py-2 border border-black rounded-md mr-[100px]"
+                      className="bg-white w-full p-2  border-primaryColor border-2 rounded-md text-black"
                       onClick={() => {
                         setdropShow(false);
                         setTime(convertTime(item.startTime));
