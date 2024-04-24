@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import avatar from "../../assets/images/avatar-icon.png";
+import avatar from "../../assets/images/user.png";
 import { AiFillStar } from "react-icons/ai";
 import FeedbackForm from "./FeedbackForm";
 
 const Feedback = ({ reviews, totalRating }) => {
-  console.log(reviews);
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
   return (
     <div>
@@ -21,7 +20,7 @@ const Feedback = ({ reviews, totalRating }) => {
                 className="flex justify-between gap-10 mb-[30px]"
               >
                 <div className="flex gap-3">
-                  <figure className="w-10 h-10 rounded-full">
+                  <figure className="w-10 h-10 rounded-full overflow-hidden">
                     <img src={review.user?.photo || avatar} alt="User Avatar" />{" "}
                   </figure>
                   <div>
