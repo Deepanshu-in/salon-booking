@@ -1,4 +1,5 @@
-const SalonAbout = ({ name, about, barber, address }) => {
+/* eslint-disable react/prop-types */
+const SalonAbout = ({ name, about, address }) => {
   return (
     <div>
       <div>

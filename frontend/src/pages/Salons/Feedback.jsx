@@ -3,6 +3,7 @@ import { useState } from "react";
 import avatar from "../../assets/images/user.png";
 import { AiFillStar } from "react-icons/ai";
 import FeedbackForm from "./FeedbackForm";
+import ConvertCreatedAt from "../../utils/ConvertCreatedAt";
 
 const Feedback = ({ reviews, totalRating }) => {
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
@@ -28,7 +29,7 @@ const Feedback = ({ reviews, totalRating }) => {
                       {review.user?.name}
                     </h5>
                     <p className="text-[15px] leading-6 text-textColor">
-                      {review?.createdAt}
+                      {ConvertCreatedAt(review?.createdAt)}
                     </p>
                     <p className="text_para mt-2 font-medium text-[15px]">
                       {review?.reviewText}
