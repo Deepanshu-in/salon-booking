@@ -90,7 +90,7 @@ const Header = () => {
                 >
                   <figure className="w-[45px] h-[45px] rounded-full cursor-pointer border border-primaryColor flex items-center bg-white">
                     <img
-                      className="w-full rounded-full"
+                      className="w-full rounded-full overflow-hidden"
                       src={user.photo ? user.photo : userImg}
                     />
                   </figure>

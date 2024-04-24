@@ -16,30 +16,34 @@ const Feedback = ({ reviews, totalRating }) => {
         <div className="overflow-scroll h-[400px] border border-primaryColor rounded-lg p-4">
           {reviews?.map((review, index) => {
             return (
-              <div
-                key={index}
-                className="flex justify-between gap-10 mb-[30px]"
-              >
-                <div className="flex gap-3">
-                  <figure className="w-10 h-10 rounded-full overflow-hidden">
-                    <img src={review.user?.photo || avatar} alt="User Avatar" />{" "}
-                  </figure>
-                  <div>
-                    <h5 className="text-[16px] leading-6 text-primaryColor font-bold">
-                      {review.user?.name}
-                    </h5>
-                    <p className="text-[15px] leading-6 text-textColor">
-                      {ConvertCreatedAt(review?.createdAt)}
-                    </p>
-                    <p className="text_para mt-2 font-medium text-[15px]">
-                      {review?.reviewText}
-                    </p>
+              <div key={index} className="h-auto w-auto">
+                <div className="flex justify-between gap-10 mb-[30px]">
+                  <div className="flex gap-5">
+                    <figure className="w-10 h-10 rounded-full overflow-hidden">
+                      <img
+                        src={review.user?.photo || avatar}
+                        alt="User Avatar"
+                      />{" "}
+                    </figure>
+                    <div>
+                      <div className="flex flex-col gap-2 md:flex-row md:w-[600px] justify-between">
+                        <h5 className="text-[16px] leading-6 text-primaryColor font-bold">
+                          {review.user?.name}
+                        </h5>
+                        <div className="flex gap-1 items-center">
+                          {[...Array(review?.rating).keys()].map((index) => (
+                            <AiFillStar key={index} color="#0067FF" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-[15px] leading-6 text-textColor mt-2 md:mt-0">
+                        {ConvertCreatedAt(review?.createdAt)}
+                      </p>
+                      <p className="text_para mt-2 font-medium text-[15px]">
+                        {review?.reviewText}
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="flex gap-1">
-                  {[...Array(review?.rating).keys()].map((index) => (
-                    <AiFillStar key={index} color="#0067FF" />
-                  ))}
                 </div>
               </div>
             );

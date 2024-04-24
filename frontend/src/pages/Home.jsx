@@ -2,6 +2,7 @@ import heroimg01 from "../assets/images/heroimg01.jpg";
 import heroimg02 from "../assets/images/heroimg02.jpg";
 import heroimg03 from "../assets/images/heroimg03.jpg";
 import { Link } from "react-router-dom";
+import { AiOutlineArrowRight } from "react-icons/ai";
 
 const Home = () => {
   return (
@@ -25,13 +26,15 @@ const Home = () => {
                     user-friendly interface makes booking your appointment a
                     breeze. Simply browse our available services, select your
                     preferred date and time, and voila! You're all set to
-                    indulge in a rejuvenating experience at our salon. With just
-                    a few clicks, you can embark on your journey to relaxation
-                    and beauty. Experience the ease and efficiency of our online
-                    booking system today!
+                    indulge in a rejuvenating experience at our salon.
                   </p>
                   <Link to="/salons">
-                    <button className="btn">Book an Appointment</button>
+                    <button className="btn flex items-center gap-1">
+                      Book an Appointment
+                      <span>
+                        <AiOutlineArrowRight />
+                      </span>
+                    </button>
                   </Link>
                 </div>
 
