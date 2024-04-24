@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { authContext } from "../../context/AuthContext";
-import userImg from "../../assets/images/heroimg01.jpg";
+import userImg from "../../assets/images/user.png";
 import MyBookings from "./MyBookings";
 import Profile from "./Profile";
 import useGetProfile from "../../hooks/useFetchData";
@@ -15,7 +15,6 @@ const MyAccount = () => {
     loading,
     error,
   } = useGetProfile(`${BASE_URL}/users/profile/me`);
-  console.log(userData, "userData");
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
@@ -30,7 +29,7 @@ const MyAccount = () => {
               <div className="flex items-center justify-center">
                 <figure className="w-[100px] h-[100px] rounded-full border-2 border-solid border-primaryColor">
                   <img
-                    src={userData.photo}
+                    src={userData.photo ? userData.photo : userImg}
                     className="w-full h-full rounded-full"
                   />
                 </figure>
@@ -50,9 +49,9 @@ const MyAccount = () => {
                 >
                   Logout
                 </button>
-                <button className="btn bg-red-600 mt-4 w-full">
+                {/* <button className="btn bg-red-600 mt-4 w-full">
                   Delete Account
-                </button>
+                </button> */}
               </div>
             </div>
             <div className=" md:col-span-2 md:px-[30px]">

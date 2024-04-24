@@ -25,7 +25,7 @@ const Home = () => {
                     to find the perfect time in your busy schedule. Our
                     user-friendly interface makes booking your appointment a
                     breeze. Simply browse our available services, select your
-                    preferred date and time, and voila! You're all set to
+                    preferred date and time, and voila! You&apos;re all set to
                     indulge in a rejuvenating experience at our salon.
                   </p>
                   <Link to="/salons">

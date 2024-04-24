@@ -16,10 +16,6 @@ const navLinks = [
     display: "Find Salons Nearby",
   },
   // {
-  //   path: "/services",
-  //   display: "Services",
-  // },
-  // {
   //   path: "/contact",
   //   display: "Contact",
   // },
@@ -61,7 +57,7 @@ const Header = () => {
 
           {/* menu */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
-            <ul className="menu flex items-center gap-[2.7rem]">
+            <ul className="menu flex items-center gap-6 md:gap-[2.7rem]">
               {navLinks.map((item, index) => (
                 <li key={index}>
                   <NavLink
@@ -76,6 +72,18 @@ const Header = () => {
                   </NavLink>
                 </li>
               ))}
+              <NavLink
+                to={`${
+                  role === "salon" ? "/salons/profile/me" : "users/profile/me"
+                }`}
+                className={(navClass) =>
+                  navClass.isActive
+                    ? " text-primaryColor text-[16px] leading-7 font-[600]"
+                    : "text-textColor text-[16px] leading-7 font-[600] hover:text-primaryColor"
+                }
+              >
+                My Bookings
+              </NavLink>
             </ul>
           </div>
 
@@ -88,9 +96,9 @@ const Header = () => {
                     role === "salon" ? "/salons/profile/me" : "users/profile/me"
                   }`}
                 >
-                  <figure className="w-[45px] h-[45px] rounded-full cursor-pointer border border-primaryColor flex items-center bg-white">
+                  <figure className="w-[45px] h-[45px] overflow-hidden rounded-full cursor-pointer border border-primaryColor flex items-center bg-white">
                     <img
-                      className="w-full rounded-full overflow-hidden"
+                      className="w-full rounded-full "
                       src={user.photo ? user.photo : userImg}
                     />
                   </figure>
