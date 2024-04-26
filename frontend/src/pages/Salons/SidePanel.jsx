@@ -71,7 +71,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
   const checkOutHandler = async (amount) => {
     // try {
     //   const res = await fetch(
-    //     `${BASE_URL}/bookings/checkout-session/${salonId}`,
+    //     `${BASE_URL}/payments/checkout/${salonId}`,
     //     {
     //       method: "post",
     //       headers: {
@@ -91,49 +91,43 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     // } catch (error) {
     //   toast.error(error);
     // }
-    try {
-      const {
-        data: { key },
-      } = await axios.get(
-        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
-      );
-
-      const {
-        data: { order },
-      } = await axios.post(
-        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
-        {
-          amount,
-        }
-      );
-      const options = {
-        key,
-        amount: order.amount,
-        currency: "INR",
-        name: "StylesAtEase",
-        description: "Test Transaction",
-        image: "https://example.com/your_logo",
-        order_id: order.id,
-        callback_url:
-          "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
-        prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000",
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#3399cc",
-        },
-      };
-      console.log(options);
-      const razor = new window.Razorpay(options);
-      razor.open();
-    } catch (error) {
-      toast.error(error.message);
-    }
+    // try {
+    //   const {
+    //     data: { key },
+    //   } = await axios.get("http://localhost:5500/api/v1/getkey");
+    //   const {
+    //     data: { order },
+    //   } = await axios.post("http://localhost:5500/api/v1/payments/checkout", {
+    //     amount,
+    //   });
+    //   const options = {
+    //     key,
+    //     amount: order.amount,
+    //     currency: "INR",
+    //     name: "StylesAtEase",
+    //     description: "Test Transaction",
+    //     image: "https://example.com/your_logo",
+    //     order_id: order.id,
+    //     callback_url:
+    //       "http://localhost:5500/api/v1/payments/paymentVerification",
+    //     prefill: {
+    //       name: "Gaurav Kumar",
+    //       email: "gaurav.kumar@example.com",
+    //       contact: "9000090000",
+    //     },
+    //     notes: {
+    //       address: "Razorpay Corporate Office",
+    //     },
+    //     theme: {
+    //       color: "#3399cc",
+    //     },
+    //   };
+    //   console.log(options);
+    //   const razor = new window.Razorpay(options);
+    //   razor.open();
+    // } catch (error) {
+    //   toast.error(error.message);
+    // }
   };
 
   const handleChange = (Date) => {
