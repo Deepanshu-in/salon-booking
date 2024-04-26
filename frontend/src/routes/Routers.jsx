@@ -9,6 +9,7 @@ import Barber from "../pages/Barber/Barber";
 import BarberDetails from "../pages/Barber/BarberDetails";
 import MyAccount from "../Dashboard/user-account/MyAccount";
 import Dashboard from "../Dashboard/salon-account/Dashboard";
+import PaymentSuccess from "../pages/PaymentSuccess";
 import ProtectedRoutes from "./ProtectedRoutes";
 import { Routes, Route } from "react-router-dom";
 
@@ -25,6 +26,7 @@ const Routers = () => {
         <Route path="/salons/:id" element={<SalonsDetails />} />
         <Route path="/barber" element={<Barber />} />
         <Route path="/barber/:id" element={<BarberDetails />} />
+        <Route path="/paymentsuccess" element={<PaymentSuccess />} />
         <Route
           path="/users/profile/me"
           element={

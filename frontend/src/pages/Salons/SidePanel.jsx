@@ -5,6 +5,7 @@ import Datepicker from "tailwind-datepicker-react";
 import { useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { BsArrowRight, BsDashCircle, BsPlusCircle } from "react-icons/bs";
+import axios from "axios";
 
 const SidePanel = ({ services, timeSlots }) => {
   const currentDate = new Date(); // Get the current date
@@ -51,9 +52,9 @@ const SidePanel = ({ services, timeSlots }) => {
       const service = updatedServices[serviceIndex];
 
       if (!service.isAdded) {
-        setCartPrice((prev) => prev + parseInt(service.discountedPrice));
+        setCartPrice((prev) => prev + Number(service.discountedPrice));
       } else {
-        setCartPrice((prev) => prev - parseInt(service.discountedPrice));
+        setCartPrice((prev) => prev - Number(service.discountedPrice));
       }
 
       // Toggle the isAdded property of the service
@@ -63,6 +64,42 @@ const SidePanel = ({ services, timeSlots }) => {
       setServicesWithAdded(updatedServices);
       // console.log(servicesWithAdded);
     }
+  };
+
+  const checkOutHandler = async (amount) => {
+    const {
+      data: { key },
+    } = await axios.get("http://localhost:5500/api/v1/getkey");
+
+    const {
+      data: { order },
+    } = await axios.post("http://localhost:5500/api/v1/payments/checkout", {
+      amount,
+    });
+    // console.log(order)
+    const options = {
+      key, // Enter the Key ID generated from the Dashboard
+      amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: "INR",
+      name: "StylesAtEase",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      callback_url: "http://localhost:5500/api/v1/payments/paymentVerification",
+      prefill: {
+        name: "Gaurav Kumar",
+        email: "gaurav.kumar@example.com",
+        contact: "9000090000",
+      },
+      notes: {
+        address: "Razorpay Corporate Office",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
+    const razor = new window.Razorpay(options);
+    razor.open();
   };
 
   const handleChange = (Date) => {
@@ -165,7 +202,10 @@ const SidePanel = ({ services, timeSlots }) => {
             {`Total Price : ${cartPrice}`}
           </h1>
         </div>
-        <button className="btn px-2 rounded-md flex flex-row gap-2 items-center justify-center">
+        <button
+          className="btn px-2 rounded-md flex flex-row gap-2 items-center justify-center"
+          onClick={() => checkOutHandler(cartPrice)}
+        >
           Go to payments{" "}
           <span>
             <BsArrowRight />

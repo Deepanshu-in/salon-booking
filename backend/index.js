@@ -41,6 +41,7 @@ const connectDB = async () => {
 };
 //middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use("/api/v1/auth", authRoute);
@@ -48,6 +49,9 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/salons", salonRoute);
 app.use("/api/v1/reviews", reviewRoute);
 app.use("/api/v1/payments", paymentRoute);
+app.get("/api/v1/getkey", (req, res) =>
+  res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+);
 app.listen(port, () => {
   connectDB();
   console.log("App server running at port : " + port);
