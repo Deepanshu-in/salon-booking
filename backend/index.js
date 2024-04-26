@@ -7,10 +7,17 @@ import authRoute from "./Routes/auth.js";
 import userRoute from "./Routes/user.js";
 import salonRoute from "./Routes/salon.js";
 import reviewRoute from "./Routes/review.js";
+import paymentRoute from "./Routes/payment.js";
+import Razorpay from "razorpay";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT;
+
+export const instance = new Razorpay({
+  key_id: process.env.RAZORPAY_API_KEY,
+  key_secret: process.env.RAZORPAY_API_SECRET,
+});
 
 const corsOptions = {
   origin: true,
@@ -40,11 +47,8 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/salons", salonRoute);
 app.use("/api/v1/reviews", reviewRoute);
+app.use("/api/v1/payments", paymentRoute);
 app.listen(port, () => {
   connectDB();
   console.log("App server running at port : " + port);
-});
-
-app.listen(() => {
-  connectDB();
 });

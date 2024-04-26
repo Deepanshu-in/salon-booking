@@ -2,9 +2,9 @@
 /* eslint-disable react/prop-types */
 import convertTime from "../../utils/convertTime";
 import Datepicker from "tailwind-datepicker-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
-import { BsArrowRight, BsPlusCircle } from "react-icons/bs";
+import { BsArrowRight, BsDashCircle, BsPlusCircle } from "react-icons/bs";
 
 const SidePanel = ({ services, timeSlots }) => {
   const currentDate = new Date(); // Get the current date
@@ -23,9 +23,48 @@ const SidePanel = ({ services, timeSlots }) => {
     defaultDate: null,
     inputPlaceholderProp: "Select Date",
   };
+
   const [time, setTime] = useState("Select Slot"); //date selection
   const [dropShow, setdropShow] = useState(false); //if slot menu is clicked or not
   const [show, setShow] = useState(false); //for date picker menu
+  const [cartPrice, setCartPrice] = useState(0);
+  const [servicesWithAdded, setServicesWithAdded] = useState([]);
+
+  useEffect(() => {
+    if (services && services.length > 0) {
+      const updatedServices = services.map((service) => ({
+        ...service,
+        isAdded: false,
+      }));
+      setServicesWithAdded(updatedServices);
+    }
+  }, [services]);
+
+  const handleCart = (item) => {
+    const serviceIndex = servicesWithAdded.findIndex(
+      (service) => service.item === item.item
+    );
+
+    if (serviceIndex !== -1) {
+      const updatedServices = [...servicesWithAdded]; // Copy the existing array
+
+      const service = updatedServices[serviceIndex];
+
+      if (!service.isAdded) {
+        setCartPrice((prev) => prev + parseInt(service.discountedPrice));
+      } else {
+        setCartPrice((prev) => prev - parseInt(service.discountedPrice));
+      }
+
+      // Toggle the isAdded property of the service
+      updatedServices[serviceIndex] = { ...service, isAdded: !service.isAdded };
+
+      // Update the state with the modified array
+      setServicesWithAdded(updatedServices);
+      // console.log(servicesWithAdded);
+    }
+  };
+
   const handleChange = (Date) => {
     console.log(Date);
   };
@@ -37,27 +76,46 @@ const SidePanel = ({ services, timeSlots }) => {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <p className="text_para mt-0 font-semibold">Choose your Services :</p>
-          {services?.map((item, index) => (
-            <div className="grid grid-cols-2 justify-evenly" key={index}>
-              <h3 className="text-text-color leading-6">{item.item}</h3>
-              <div className="grid grid-cols-2 gap-[110px]">
-                <div className="flex flex-row gap-2">
-                  <h3 className="line-through text-textColor">
-                    ₹{item.actualPrice}
-                  </h3>
-                  <h4 className=" text-green-500">
-                    {(
-                      (100 / item.actualPrice) *
-                      (item.actualPrice - item.discountedPrice)
-                    ).toFixed(0)}
-                    %
-                  </h4>
-                  <h3 className="text-textColor">₹{item.discountedPrice}</h3>
+          <div className="flex flex-col gap-2 mt-2">
+            {servicesWithAdded.map((service, index) => (
+              <div
+                className="grid grid-cols-3 gap-[110px] justify-evenly border border-black rounded-md p-3"
+                key={index}
+              >
+                <h3 className="text-[16px] text-text-color leading-6">
+                  {service.item}
+                </h3>
+                <div className="grid grid-cols-2 gap-[110px]">
+                  <div className="flex flex-row gap-2">
+                    <h3 className="line-through text-textColor">
+                      ₹{service.actualPrice}
+                    </h3>
+                    <h4 className=" text-green-500">
+                      {(
+                        (100 / service.actualPrice) *
+                        (service.actualPrice - service.discountedPrice)
+                      ).toFixed(0)}
+                      %
+                    </h4>
+                    <h3 className="text-textColor">
+                      ₹{service.discountedPrice}
+                    </h3>
+                  </div>
                 </div>
-                <BsPlusCircle className="w-6 h-6 rounded-full border border-solid border-[#181A1E] mx-auto flex items-center justify-center group hover:bg-primaryColor hover:text-white hover:border-none" />
+                {service.isAdded ? (
+                  <BsDashCircle
+                    className="w-6 h-6 rounded-full border border-solid border-[#181A1E] flex items-center justify-center group hover:bg-primaryColor hover:text-white "
+                    onClick={() => handleCart(service)}
+                  />
+                ) : (
+                  <BsPlusCircle
+                    className="w-6 h-6 rounded-full border border-solid border-[#181A1E] flex items-center justify-center group hover:bg-primaryColor hover:text-white"
+                    onClick={() => handleCart(service)}
+                  />
+                )}
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -73,11 +131,11 @@ const SidePanel = ({ services, timeSlots }) => {
         <div className="flex flex-col justify-between gap-2">
           <p className="text_para mt-0 font-semibold">Choose your Slot :</p>
           {/* dropdowm menu */}
-          <div className="flex flex-col items-center border border-primaryColor rounded-lg p-2 bg-[#374151] text-white">
-            <button
-              className="flex flex-row items-center gap-2"
-              onClick={() => setdropShow((prev) => !prev)}
-            >
+          <div
+            className="flex flex-col items-center border border-primaryColor rounded-lg p-2 bg-[#374151] text-white"
+            onClick={() => setdropShow((prev) => !prev)}
+          >
+            <button className="flex flex-row items-center gap-2">
               {time}
               <span>
                 {!dropShow ? <AiOutlineCaretDown /> : <AiOutlineCaretUp />}
@@ -102,7 +160,11 @@ const SidePanel = ({ services, timeSlots }) => {
             )}
           </div>
         </div>
-
+        <div className="flex justify-end items-center">
+          <h1 className="font-bold leading-7 text-[16px]">
+            {`Total Price : ${cartPrice}`}
+          </h1>
+        </div>
         <button className="btn px-2 rounded-md flex flex-row gap-2 items-center justify-center">
           Go to payments{" "}
           <span>
