@@ -93,13 +93,18 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     // }
     const {
       data: { key },
-    } = await axios.get("http://localhost:5500/api/v1/getkey");
+    } = await axios.get(
+      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
+    );
 
     const {
       data: { order },
-    } = await axios.post("http://localhost:5500/api/v1/payments/checkout", {
-      amount,
-    });
+    } = await axios.post(
+      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
+      {
+        amount,
+      }
+    );
     // console.log(options);
     const options = {
       key,
@@ -109,7 +114,8 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
       description: "Test Transaction",
       image: "https://example.com/your_logo",
       order_id: order.id,
-      callback_url: "http://localhost:5500/api/v1/payments/paymentVerification",
+      callback_url:
+        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
       prefill: {
         name: "Gaurav Kumar",
         email: "gaurav.kumar@example.com",
