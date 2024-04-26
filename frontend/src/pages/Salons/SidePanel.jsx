@@ -91,45 +91,49 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     // } catch (error) {
     //   toast.error(error);
     // }
-    const {
-      data: { key },
-    } = await axios.get(
-      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
-    );
+    try {
+      const {
+        data: { key },
+      } = await axios.get(
+        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
+      );
 
-    const {
-      data: { order },
-    } = await axios.post(
-      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
-      {
-        amount,
-      }
-    );
-    // console.log(options);
-    const options = {
-      key,
-      amount: order.amount,
-      currency: "INR",
-      name: "StylesAtEase",
-      description: "Test Transaction",
-      image: "https://example.com/your_logo",
-      order_id: order.id,
-      callback_url:
-        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
-      prefill: {
-        name: "Gaurav Kumar",
-        email: "gaurav.kumar@example.com",
-        contact: "9000090000",
-      },
-      notes: {
-        address: "Razorpay Corporate Office",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
-    const razor = new window.Razorpay(options);
-    razor.open();
+      const {
+        data: { order },
+      } = await axios.post(
+        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
+        {
+          amount,
+        }
+      );
+      const options = {
+        key,
+        amount: order.amount,
+        currency: "INR",
+        name: "StylesAtEase",
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: order.id,
+        callback_url:
+          "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
+        prefill: {
+          name: "Gaurav Kumar",
+          email: "gaurav.kumar@example.com",
+          contact: "9000090000",
+        },
+        notes: {
+          address: "Razorpay Corporate Office",
+        },
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      console.log(options);
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
 
   const handleChange = (Date) => {
