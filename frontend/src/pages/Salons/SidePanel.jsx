@@ -70,13 +70,13 @@ const SidePanel = ({ services, timeSlots }) => {
     const {
       data: { key },
     } = await axios.get(
-      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
+      "http://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
     );
 
     const {
       data: { order },
     } = await axios.post(
-      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
+      "http://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
       {
         amount,
       }
@@ -91,7 +91,7 @@ const SidePanel = ({ services, timeSlots }) => {
       image: "https://example.com/your_logo",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       callback_url:
-        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
+        "http://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
       prefill: {
         name: "Gaurav Kumar",
         email: "gaurav.kumar@example.com",
