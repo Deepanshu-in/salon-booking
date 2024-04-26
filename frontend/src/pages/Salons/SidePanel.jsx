@@ -69,13 +69,18 @@ const SidePanel = ({ services, timeSlots }) => {
   const checkOutHandler = async (amount) => {
     const {
       data: { key },
-    } = await axios.get("http://localhost:5500/api/v1/getkey");
+    } = await axios.get(
+      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
+    );
 
     const {
       data: { order },
-    } = await axios.post("http://localhost:5500/api/v1/payments/checkout", {
-      amount,
-    });
+    } = await axios.post(
+      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
+      {
+        amount,
+      }
+    );
     // console.log(order)
     const options = {
       key, // Enter the Key ID generated from the Dashboard
@@ -85,7 +90,8 @@ const SidePanel = ({ services, timeSlots }) => {
       description: "Test Transaction",
       image: "https://example.com/your_logo",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      callback_url: "http://localhost:5500/api/v1/payments/paymentVerification",
+      callback_url:
+        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
       prefill: {
         name: "Gaurav Kumar",
         email: "gaurav.kumar@example.com",
