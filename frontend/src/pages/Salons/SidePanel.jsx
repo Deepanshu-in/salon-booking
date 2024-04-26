@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import { BsArrowRight, BsDashCircle, BsPlusCircle } from "react-icons/bs";
 import axios from "axios";
+import { BASE_URL, token } from "../../../config";
+import { toast } from "react-toastify";
 
-const SidePanel = ({ services, timeSlots }) => {
+const SidePanel = ({ salonId, services, timeSlots }) => {
   const currentDate = new Date(); // Get the current date
   const previousDay = new Date(currentDate); // Create a new Date object based on the current date
   const maxDate = new Date(currentDate); // Create a new Date object based on the current date
@@ -67,25 +69,46 @@ const SidePanel = ({ services, timeSlots }) => {
   };
 
   const checkOutHandler = async (amount) => {
+    // try {
+    //   const res = await fetch(
+    //     `${BASE_URL}/bookings/checkout-session/${salonId}`,
+    //     {
+    //       method: "post",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //       body: JSON.stringify({ amount }),
+    //     }
+    //   );
+    //   const data = res.json();
+    //   if (!res.ok) {
+    //     throw new Error(data.message + "Please try again");
+    //   }
+    //   if (data.session.url) {
+    //     window.location.href = data.session.url;
+    //   }
+    // } catch (error) {
+    //   toast.error(error);
+    // }
     const {
       data: { key },
-    } = await axios.get(
-      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
-    );
+    } = await axios.get("http://localhost:5500/api/v1/getkey");
 
     const {
       data: { order },
     } = await axios.post("http://localhost:5500/api/v1/payments/checkout", {
       amount,
     });
+    // console.log(options);
     const options = {
-      key, // Enter the Key ID generated from the Dashboard
-      amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      key,
+      amount: order.amount,
       currency: "INR",
       name: "StylesAtEase",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
-      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      order_id: order.id,
       callback_url: "http://localhost:5500/api/v1/payments/paymentVerification",
       prefill: {
         name: "Gaurav Kumar",

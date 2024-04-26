@@ -92,7 +92,11 @@ const SalonsDetails = () => {
               </div>
             </div>
             <div>
-              <SidePanel services={services} timeSlots={timeSlots} />
+              <SidePanel
+                salonId={id}
+                services={services}
+                timeSlots={timeSlots}
+              />
             </div>
           </div>
         )}
