@@ -70,18 +70,14 @@ const SidePanel = ({ services, timeSlots }) => {
     const {
       data: { key },
     } = await axios.get(
-      "http://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
+      "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
     );
 
     const {
       data: { order },
-    } = await axios.post(
-      "http://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/checkout",
-      {
-        amount,
-      }
-    );
-    // console.log(order)
+    } = await axios.post("http://localhost:5500/api/v1/payments/checkout", {
+      amount,
+    });
     const options = {
       key, // Enter the Key ID generated from the Dashboard
       amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -90,8 +86,7 @@ const SidePanel = ({ services, timeSlots }) => {
       description: "Test Transaction",
       image: "https://example.com/your_logo",
       order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      callback_url:
-        "http://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
+      callback_url: "http://localhost:5500/api/v1/payments/paymentVerification",
       prefill: {
         name: "Gaurav Kumar",
         email: "gaurav.kumar@example.com",
