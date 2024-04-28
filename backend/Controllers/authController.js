@@ -86,7 +86,10 @@ export const login = async (req, res) => {
     }
 
     //compare if passwords matches
-    const isPasswordMatches = bcrypt.compare(req.body.password, user.password);
+    const isPasswordMatches = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
 
     if (!isPasswordMatches) {
       return res

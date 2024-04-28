@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema(
   {
-    barber: {
+    salon: {
       type: mongoose.Types.ObjectId,
       ref: "Salon",
       required: true,
@@ -12,13 +12,9 @@ const bookingSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    ticketPrice: { type: Array, required: true },
+    amount: { type: Number, required: true },
     appointmentDate: {
       type: Date,
-      required: true,
-    },
-    appointmentDate: {
-      type: String,
       required: true,
     },
     status: {
@@ -33,5 +29,13 @@ const bookingSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+bookingSchema.pre(/^find/, function (next) {
+  this.populate("user").populate({
+    path: "salon",
+    select: "name",
+  });
+  next();
+});
 
 export default mongoose.model("Booking", bookingSchema);
