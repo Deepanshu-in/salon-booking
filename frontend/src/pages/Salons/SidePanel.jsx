@@ -87,7 +87,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
       const { order } = response;
       console.log(response);
       if (!res.ok) {
-        throw new Error(response.message + "Please try again");
+        throw new Error(response.message + " Please try again later !");
       }
       // if (response.order.id) {
       //   window.location.href = response.order.id;
@@ -98,10 +98,10 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         currency: "INR",
         name: "StylesAtEase",
         description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        // image: "https://example.com/your_logo",
         order_id: order.id,
         callback_url:
-          "http://localhost:5500/api/v1/payments/paymentVerification",
+          "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
         prefill: {
           name: "Deepanshu Gupta",
           email: "gaurav.kumar@example.com",
