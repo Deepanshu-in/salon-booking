@@ -46,7 +46,8 @@ const Footer = () => {
           <div>
             <img src={logo} className="w-[100px] h-[70px]"></img>
             <p className=" text-[16px] leading-7 font-[400] text-textColor mt-4">
-              Copyright &copy;{year} Developed by Deepanshu All rights reserved.
+              Copyright &copy;{year} Developed by Deepanshu Gupta All rights
+              reserved.
             </p>
             <p className=" text-[16px] leading-7 font-[400] text-textColor mt-1">
               Address: NCT 1 ,Kharar ,Punjab ,140413
