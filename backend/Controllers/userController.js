@@ -104,9 +104,7 @@ export const getUserProfile = async (req, res) => {
 export const getMyAppointments = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.userId });
-
-    const salonIds = bookings.map((el) => el.salon.id);
-
+    const salonIds = bookings.map((el) => el.salon);
     const salons = await Salon.find({ _id: { $in: salonIds } }).select(
       "-password"
     );
@@ -119,6 +117,7 @@ export const getMyAppointments = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Something went wrong cannot find",
+      error: error.message,
     });
   }
 };

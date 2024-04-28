@@ -13,9 +13,7 @@ router
   .post(authenticate, restrict(["customer"]), checkout);
 // router.route("/checkout").post(checkout);
 
-router
-  .route("/paymentVerification")
-  .post(authenticate, restrict(["customer"]), paymentVerification);
+router.route("/paymentVerification").post(paymentVerification);
 // router.route("/paymentVerification").post(paymentVerification);
 
 export default router;
