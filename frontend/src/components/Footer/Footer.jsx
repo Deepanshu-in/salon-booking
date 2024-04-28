@@ -20,19 +20,21 @@ const socialLinks = [
 
 const quickLinks = [
   { path: "/", display: "Home" },
-  { path: "/services", display: "Services" },
+  // { path: "/services", display: "Services" },
   { path: "/contact", display: "Contact us" },
 ];
 const quickLinks02 = [
   { path: "/salons", display: "Find a Salon" },
   { path: "/", display: "Book an Appointment" },
-  { path: "/", display: "Get an opinion" },
-  { path: "/", display: "Find a location" },
+  // { path: "/", display: "Get an opinion" },
+  // { path: "/", display: "Find a location" },
 ];
 
 const quickLinks03 = [
-  { path: "/", display: "Donate" },
+  // { path: "/", display: "Donate" },
   { path: "/contact", display: "Contact Us" },
+  { path: "/terms-and-condition", display: "Terms and Conditions" },
+  { path: "/privacy-policy", display: "Privacy Policy" },
 ];
 
 const Footer = () => {
@@ -44,8 +46,15 @@ const Footer = () => {
           <div>
             <img src={logo} className="w-[100px] h-[70px]"></img>
             <p className=" text-[16px] leading-7 font-[400] text-textColor mt-4">
-              Copyright &copy;{year} developed by Deepanshu all rights reserved.
+              Copyright &copy;{year} Developed by Deepanshu All rights reserved.
             </p>
+            <p className=" text-[16px] leading-7 font-[400] text-textColor mt-1">
+              Address: NCT 1 ,Kharar ,Punjab ,140413
+            </p>
+            <p className=" text-[16px] leading-7 font-[400] text-textColor mt-1">
+              Support:dipanshugupta921@gmail.com
+            </p>
+
             <div className="flex items-center gap-3 mt-4">
               {socialLinks.map((item, index) => (
                 <Link
