@@ -4,10 +4,12 @@ import convertTime from "../../utils/convertTime";
 import Datepicker from "tailwind-datepicker-react";
 import { useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
+import HashLoader from "react-spinners/HashLoader";
 import { BsArrowRight, BsDashCircle, BsPlusCircle } from "react-icons/bs";
 import axios from "axios";
 import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
+import Loader from "../../Loader/Loader";
 
 const SidePanel = ({ salonId, services, timeSlots }) => {
   const currentDate = new Date(); // Get the current date
@@ -15,7 +17,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
   const maxDate = new Date(currentDate); // Create a new Date object based on the current date
   maxDate.setDate(currentDate.getDate() + 6);
   previousDay.setDate(currentDate.getDate() - 1);
-
+  const [loading, setLoading] = useState(false);
   const options = {
     maxDate: maxDate,
     minDate: previousDay,
@@ -69,12 +71,15 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
   };
 
   const checkOutHandler = async (amount) => {
+    if (amount === 0) {
+      toast.error("Amount cannot be 0");
+      return;
+    }
     try {
+      setLoading(true);
       const {
         data: { key },
-      } = await axios.get(
-        "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/getkey"
-      );
+      } = await axios.get(`${BASE_URL}/getkey`);
       const res = await fetch(`${BASE_URL}/payments/checkout/${salonId}`, {
         method: "POST",
         headers: {
@@ -98,10 +103,9 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         currency: "INR",
         name: "StylesAtEase",
         description: "Test Transaction",
-        // image: "https://example.com/your_logo",
+        image: "https://example.com/your_logo",
         order_id: order.id,
-        callback_url:
-          "https://salon-backend-06b19bc39279.herokuapp.com/api/v1/payments/paymentVerification",
+        callback_url: `${BASE_URL}/payments/paymentVerification`,
         prefill: {
           name: "Deepanshu Gupta",
           email: "gaurav.kumar@example.com",
@@ -116,8 +120,11 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
       };
       const razor = new window.Razorpay(options);
       razor.open();
+      setLoading(false);
     } catch (error) {
       toast.error(error.message);
+      console.log(error);
+      setLoading(false);
     }
   };
 
@@ -225,10 +232,18 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
           className="btn px-2 rounded-md flex flex-row gap-2 items-center justify-center"
           onClick={() => checkOutHandler(cartPrice)}
         >
-          Go to payments{" "}
-          <span>
-            <BsArrowRight />
-          </span>
+          {loading ? (
+            <div className="flex items-center justify-center w-full h-full">
+              <HashLoader color="#ffffff" />
+            </div>
+          ) : (
+            <>
+              Go to Payments{" "}
+              <span>
+                <BsArrowRight />
+              </span>
+            </>
+          )}
         </button>
       </div>
     </div>

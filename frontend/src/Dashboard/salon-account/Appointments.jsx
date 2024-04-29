@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import formatTimestamp from "../../utils/ConvertCreatedAt";
 
 const Appointments = ({ appointments }) => {
   return (
@@ -33,16 +33,16 @@ const Appointments = ({ appointments }) => {
               scope="row"
               className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap"
             >
-              <img
+              {/* <img
                 src={item.user.photo}
                 className="w-10 h-10 rounded-full"
-              ></img>
+              ></img> */}
               <div className=" text-base font-semibold">{item.user.name}</div>
               <div className=" text-normal text-gray-500">
                 {item.user.phone}
               </div>
             </th>
-            <td className="px-6 py-4">{item.user.gender}</td>
+            <td className="px-6 py-4">{item.user.gender.toUpperCase()}</td>
             <td className="px-6 py-4">
               {item.isPaid && (
                 <div className="flex items-center">
@@ -56,18 +56,12 @@ const Appointments = ({ appointments }) => {
                   UnPaid
                 </div>
               )}
-              {item.isPaid && (
-                <div className="flex items-center">
-                  <div className="h-2.5 w-2.5 rounded-full bg-green-500 mr-2"></div>
-                  Paid
-                </div>
-              )}
             </td>
             {/* services opted  pending*/}
             <td className="px-6 py-4">{item.user.gender}</td>
-            <td className="px-6 py-4">{item.createdAt}</td>
+            <td className="px-6 py-4">{formatTimestamp(item.createdAt)}</td>
             {/* slot pending */}
-            <td className="px-6 py-4">{item.user.gender}</td>
+            <td className="px-6 py-4">₹{item.amount}</td>
           </tr>
         ))}
       </tbody>
