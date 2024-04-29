@@ -11,7 +11,7 @@ const PaymentSuccess = () => {
   const referenceNum = searchQuery.get("reference");
   return (
     // <Lottie animationData={paymentSuccess} loop={true} />
-    <div className="mx-auto w-[400px] md:w-[500px] h-[550px] p-4 m-8 border border-primaryColor rounded-md">
+    <div className="mx-auto w-[325px] md:w-[500px] h-[550px] p-4 m-8 border border-primaryColor rounded-md">
       <div className="flex flex-col gap-6 p-2 items-center justify-center">
         <div className="w-[200px] h-[200px]">
           <Lottie animationData={paymentSuccess} loop={true} />

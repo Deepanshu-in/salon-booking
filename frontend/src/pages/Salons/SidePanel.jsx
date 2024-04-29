@@ -233,8 +233,8 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
           onClick={() => checkOutHandler(cartPrice)}
         >
           {loading ? (
-            <div className="flex items-center justify-center w-full h-full">
-              <HashLoader color="#ffffff" />
+            <div className="flex items-center justify-center w-6 h-6">
+              <HashLoader color="#ffffff" size={35} />
             </div>
           ) : (
             <>
