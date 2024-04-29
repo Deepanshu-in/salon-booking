@@ -10,9 +10,8 @@ const PaymentSuccess = () => {
   const searchQuery = useSearchParams()[0];
   const referenceNum = searchQuery.get("reference");
   return (
-    // <Lottie animationData={paymentSuccess} loop={true} />
-    <div className="mx-auto w-[325px] md:w-[500px] h-[550px] p-4 m-8 border border-primaryColor rounded-md">
-      <div className="flex flex-col gap-6 p-2 items-center justify-center">
+    <div className="mx-auto w-[340px] md:w-[500px] h-full p-2 my-4 border border-primaryColor rounded-md">
+      <div className="flex flex-col gap-4 p-1 items-center justify-center">
         <div className="w-[200px] h-[200px]">
           <Lottie animationData={paymentSuccess} loop={true} />
         </div>
@@ -20,7 +19,7 @@ const PaymentSuccess = () => {
           Payment Successfull 🎉
         </h1>
         <div>
-          <h1 className=" text-textColor">{`Reference Number : ${referenceNum}`}</h1>
+          <h1 className=" text-textColor">{`Ref Number : ${referenceNum}`}</h1>
         </div>
         <h1 className="font-semibold text-[24px]">Thank You !!</h1>
         <Link to="/users/profile/me">
