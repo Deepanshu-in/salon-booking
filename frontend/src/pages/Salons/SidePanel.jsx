@@ -108,11 +108,11 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         callback_url: `${BASE_URL}/payments/paymentVerification`,
         prefill: {
           name: "Deepanshu Gupta",
-          email: "gaurav.kumar@example.com",
-          contact: "9000090000",
+          email: "dipanshugupta921@gmail.com",
+          contact: "9507256359",
         },
         notes: {
-          address: "Razorpay Corporate Office",
+          address: "Kharar,Punjab",
         },
         theme: {
           color: "#3399cc",

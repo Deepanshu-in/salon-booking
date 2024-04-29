@@ -14,7 +14,8 @@ export const checkout = async (req, res) => {
     const order = await instance.orders.create(options);
     res.status(200).json({ success: true, message: "Successful", order });
   } catch (error) {
-    res.status(404).json({ success: false, message: "Not found" });
+    res.status(404).json({ success: false, message: error });
+    console.log(error);
   }
   const salon = await Salon.findById(req.params.salonId);
   const user = await User.findById(req.userId);
