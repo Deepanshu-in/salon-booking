@@ -84,6 +84,20 @@ const Header = () => {
               >
                 My Bookings
               </NavLink>
+              <NavLink
+                to={`${
+                  role === "salon"
+                    ? "/paymentsuccess?reference=pay_O4LSj05owXLeGh"
+                    : "/paymentsuccess?reference=pay_O4LSj05owXLeGh"
+                }`}
+                className={(navClass) =>
+                  navClass.isActive
+                    ? " text-primaryColor text-[16px] leading-7 font-[600]"
+                    : "text-textColor text-[16px] leading-7 font-[600] hover:text-primaryColor"
+                }
+              >
+                paymentSuccess
+              </NavLink>
             </ul>
           </div>
 
