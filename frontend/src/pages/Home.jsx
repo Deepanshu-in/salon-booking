@@ -19,14 +19,11 @@ const Home = () => {
                     Why wait in queue when we are here !
                   </h1>
                   <p className="text__para">
-                    Welcome to our salon appointment website! Discover the
-                    ultimate convenience in scheduling your next pampering
-                    session with us. Say goodbye to long waits on hold or trying
-                    to find the perfect time in your busy schedule. Our
-                    user-friendly interface makes booking your appointment a
-                    breeze. Simply browse our available services, select your
-                    preferred date and time, and voila! You&apos;re all set to
-                    indulge in a rejuvenating experience at our salon.
+                    Welcome to StylesAtEase! Discover the ultimate convenience
+                    in scheduling your next pampering session with us. Say
+                    goodbye to long waits on hold or trying to find the perfect
+                    time in your busy schedule. Our user-friendly interface
+                    makes booking your appointment a breeze.
                   </p>
                   <Link to="/salons">
                     <button className="btn flex items-center gap-1">

@@ -88,10 +88,11 @@ export const getUserProfile = async (req, res) => {
       });
     }
     const { password, ...rest } = user._doc;
+    const appointments = await Booking.find({ user: req.userId });
     res.status(200).json({
       success: true,
       message: "Profile info is getting",
-      data: { ...rest },
+      data: { ...rest, appointments },
     });
   } catch (error) {
     res.status(500).json({
@@ -108,6 +109,7 @@ export const getMyAppointments = async (req, res) => {
     const salons = await Salon.find({ _id: { $in: salonIds } }).select(
       "-password"
     );
+    // console.log(salons);
     res.status(200).json({
       success: true,
       message: "Appointments are getting fetched",

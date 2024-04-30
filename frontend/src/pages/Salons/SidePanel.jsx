@@ -9,7 +9,6 @@ import { BsArrowRight, BsDashCircle, BsPlusCircle } from "react-icons/bs";
 import axios from "axios";
 import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
-import Loader from "../../Loader/Loader";
 
 const SidePanel = ({ salonId, services, timeSlots }) => {
   const currentDate = new Date(); // Get the current date

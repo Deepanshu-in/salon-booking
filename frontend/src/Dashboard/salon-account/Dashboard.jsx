@@ -14,6 +14,7 @@ const Dashboard = () => {
   const { data, loading, error } = useGetProfile(
     `${BASE_URL}/salons/profile/me`
   );
+  console.log(data);
   const [tab, setTab] = useState("overview");
   return (
     <section>
@@ -33,7 +34,7 @@ const Dashboard = () => {
                   </div>
                 </div>
               )}
-              <div className="mt-8">
+              <div className="">
                 {tab === "overview" && (
                   <div>
                     <div className="flex flex-col gap-10 md:flex-row items-center md:gap-4 mb-10">
