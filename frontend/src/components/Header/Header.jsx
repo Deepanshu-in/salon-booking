@@ -4,7 +4,6 @@ import { useEffect, useRef, useContext } from "react";
 import { BiMenu } from "react-icons/bi";
 import { authContext } from "../../context/AuthContext";
 import userImg from "../../assets/images/user.png";
-// import { FaUser } from "react-icons/fa";
 
 const navLinks = [
   {
