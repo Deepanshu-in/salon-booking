@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-const SalonAbout = ({ name, about, address }) => {
+const SalonAbout = ({ name, about, address, services }) => {
   return (
     <div>
       <div>
@@ -15,39 +15,15 @@ const SalonAbout = ({ name, about, address }) => {
         <h3 className="text-[20px] leading-[30px] text-headingColor font-semibold">
           Best Known for:
         </h3>
-        <ul className="pt-4 md:p-5">
-          <li className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]">
-            <div className="flex flex-col gap-2">
+        <div className="pt-4 md:p-5">
+          {services?.map((item, index) => (
+            <div key={index} className="flex flex-col gap-2">
               <h3 className=" text-irisBlueColor text-[15px] leading-6 font-semibold">
-                Hair Cutting
-              </h3>
-              <h3 className=" text-irisBlueColor text-[15px] leading-6 font-semibold">
-                Beard Trimming
-              </h3>
-              <h3 className=" text-irisBlueColor text-[15px] leading-6 font-semibold">
-                De-tan
+                {item.item}
               </h3>
             </div>
-          </li>
-        </ul>
-      </div>
-
-      <div className="mt-1">
-        <h3 className="text-[20px] leading-[30px] text-headingColor font-semibold">
-          Barbers Available:
-        </h3>
-        <ul className="pt-4 md:p-5">
-          <li className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]">
-            <div className="flex flex-col gap-2">
-              <h3 className=" text-irisBlueColor text-[15px] leading-6 font-semibold">
-                Amrendra Barber
-              </h3>
-              <h3 className=" text-irisBlueColor text-[15px] leading-6 font-semibold">
-                Dhirendra Barber
-              </h3>
-            </div>
-          </li>
-        </ul>
+          ))}
+        </div>
       </div>
 
       <div className="mt-1">

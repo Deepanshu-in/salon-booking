@@ -23,6 +23,7 @@ const SalonsDetails = () => {
     photo,
     address,
     services,
+    speciality,
     timeSlots,
     reviews,
   } = salon;
@@ -41,7 +42,7 @@ const SalonsDetails = () => {
 
                 <div>
                   <span className="bg-[#CCF0F3] text-irisBlueColor py-1 px-6 lg:py-2 text-[12px] leading-4 lg:text-[16px] lg:leading-7 font-semibold rounded">
-                    Hair Salon
+                    {speciality?.toUpperCase()}
                   </span>
                   <h3 className=" text-headingColor text-[22px] leading-9 mt-3 font-bold">
                     {name}
@@ -84,7 +85,11 @@ const SalonsDetails = () => {
 
               <div className="mt-[50px]">
                 {tab === "about" && (
-                  <SalonAbout name={name} address={address} />
+                  <SalonAbout
+                    name={name}
+                    address={address}
+                    services={services}
+                  />
                 )}
                 {tab === "feedback" && (
                   <Feedback reviews={reviews} totalRating={totalRating} />

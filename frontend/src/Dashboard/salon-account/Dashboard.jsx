@@ -14,7 +14,6 @@ const Dashboard = () => {
   const { data, loading, error } = useGetProfile(
     `${BASE_URL}/salons/profile/me`
   );
-  console.log(data);
   const [tab, setTab] = useState("overview");
   return (
     <section>
@@ -43,7 +42,7 @@ const Dashboard = () => {
                       </figure>
                       <div className="w-[300px]">
                         <span className="bg-[#CCF0F3] text-irisBlueColor py-2 px-4 lg:py-2 lg:px-6 rounded-md text-[12px] leading-4 lg:text-[16px] lg:leading-7 font-semibold">
-                          {data.speciality}
+                          {data.speciality?.toUpperCase()}
                         </span>
                         <h3 className="text-[22px] leading-9 font-bold text-headingColor mt-3">
                           {data.name}
@@ -67,6 +66,7 @@ const Dashboard = () => {
                       about={data.about}
                       barber={data.barber}
                       address={data.address}
+                      services={data.services}
                     />
                   </div>
                 )}

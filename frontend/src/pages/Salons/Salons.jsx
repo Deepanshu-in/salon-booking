@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import cactus from "../../assets/images/cactus.svg";
 import { CiGps } from "react-icons/ci";
 import { Tooltip } from "@mui/material";
+import { toast } from "react-toastify";
 
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
   const toRadians = (angle) => angle * (Math.PI / 180);
@@ -30,31 +31,6 @@ const haversineDistance = (lat1, lon1, lat2, lon2) => {
 };
 const Salons = () => {
   const [query, setQuery] = useState("");
-  const [debounceQuery, setDebounceQuery] = useState("");
-
-  const handleGetLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          const destinationLat = 30.702355395789304;
-          const destinationLng = 76.74696593273809;
-          const distance = haversineDistance(
-            latitude,
-            longitude,
-            destinationLat,
-            destinationLng
-          );
-          console.log(`Distance to destination: ${distance.toFixed(2)} km`);
-        },
-        (error) => {
-          console.error("Error fetching geolocation:", error);
-        }
-      );
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
-  };
 
   const handleSearch = () => {
     setQuery(query.trim());
@@ -67,12 +43,54 @@ const Salons = () => {
 
     return () => clearTimeout(timeOut);
   }, [query]);
+  const [debounceQuery, setDebounceQuery] = useState("");
 
   const {
     data: salons,
     loading,
     error,
   } = useFetchData(`${BASE_URL}/salons?query=${debounceQuery}`);
+
+  const [SalonsList, setSalonsList] = useState(salons);
+  useEffect(() => {
+    setSalonsList(salons);
+  }, [salons]);
+
+  console.log(SalonsList);
+  const handleGetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          toast.success("Location fetched");
+          const filteredSalons = SalonsList.filter((item) => {
+            const salonLat = parseFloat(item?.coordinates[0]?.latitude);
+            const salonLon = parseFloat(item?.coordinates[0]?.longitude);
+
+            if (isNaN(salonLat) || isNaN(salonLon)) {
+              console.error("Invalid salon coordinates:", item?.coordinates[0]);
+              return false;
+            }
+
+            const distance = haversineDistance(
+              latitude,
+              longitude,
+              salonLat,
+              salonLon
+            );
+            console.log(`Distance to destination: ${distance.toFixed(2)} km`);
+            return distance <= 30;
+          });
+          setSalonsList(filteredSalons);
+        },
+        (error) => {
+          toast.error("Error fetching geolocation:", error.message);
+        }
+      );
+    } else {
+      toast.error("Geolocation is not supported by this browser.");
+    }
+  };
 
   return (
     <>
@@ -110,27 +128,26 @@ const Salons = () => {
         {error && <Error />}
         {!loading && !error && (
           <div className="container">
-            {salons.length !== 0 ? (
-              salons.map((salon) => (
-                <div
-                  key={salon._id}
-                  className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-5 "
-                >
-                  <SalonCard salon={salon} />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-5 ">
+              {SalonsList.length !== 0 ? (
+                SalonsList.map((salon) => (
+                  <div key={salon._id}>
+                    <SalonCard salon={salon} />
+                  </div>
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center">
+                  <img src={cactus} className="h-[150px] " />
+                  <h1 className="font-bold text-red-400 text-[20px]">
+                    Ohhoo!! No results found :(
+                  </h1>
+                  <h1 className="font-bold text-green-400 text-[20px]">
+                    We are continuously working to get more salons onboard. Stay
+                    with us!!
+                  </h1>
                 </div>
-              ))
-            ) : (
-              <div className="flex flex-col items-center justify-center">
-                <img src={cactus} className="h-[150px] " />
-                <h1 className="font-bold text-red-400 text-[20px]">
-                  Ohhoo!! No results found :(
-                </h1>
-                <h1 className="font-bold text-green-400 text-[20px]">
-                  We are continuously working to get more salons onboard. Stay
-                  with us!!
-                </h1>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         )}
       </section>

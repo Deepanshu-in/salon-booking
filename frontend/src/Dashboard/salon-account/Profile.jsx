@@ -4,33 +4,48 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
 import uploadImageToCloudinary from "../../utils/uploadCloudinary";
+import { CiGps } from "react-icons/ci";
+import { ClipLoader } from "react-spinners";
+import { Tooltip } from "@mui/material";
 
 const Profile = ({ salonData }) => {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [locationloading, setLocationLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
     phone: "",
     address: "",
+    speciality: "",
     mapLink: "",
     barber: "",
-    // photo: "",
+    bio: "",
+    coordinates: [{ latitude: "", longitude: "" }],
     timeSlots: [{ startTime: "10:00", endTime: "10:30" }],
     services: [{ item: "", actualPrice: "", discountedPrice: "" }],
   });
 
   useEffect(() => {
-    setFormData({
-      name: salonData?.name,
-      email: salonData?.email,
-      phone: salonData?.phone,
-      address: salonData?.address,
-      mapLink: salonData?.mapLink,
-      barber: salonData?.barber,
-      timeSlots: salonData?.timeSlots,
-      services: salonData?.services,
-    });
+    if (salonData) {
+      setFormData({
+        name: salonData.name || "",
+        email: salonData.email || "",
+        phone: salonData.phone || "",
+        address: salonData.address || "",
+        mapLink: salonData.mapLink || "",
+        speciality: salonData.speciality || "unisex",
+        bio: salonData.bio || "",
+        coordinates: salonData.coordinates || [{ latitude: "", longitude: "" }],
+        barber: salonData.barber || "",
+        timeSlots: salonData.timeSlots || [
+          { startTime: "10:00", endTime: "10:30" },
+        ],
+        services: salonData.services || [
+          { item: "", actualPrice: "", discountedPrice: "" },
+        ],
+      });
+    }
   }, [salonData]);
 
   const handleInputChange = (e) => {
@@ -56,7 +71,7 @@ const Profile = ({ salonData }) => {
       });
 
       const result = await res.json();
-
+      console.log(result);
       if (!res.ok) {
         throw Error(result.message);
       }
@@ -129,6 +144,34 @@ const Profile = ({ salonData }) => {
     e.preventDefault();
     deleteItems("timeSlots", index);
   };
+
+  const handleGetLocation = async (e) => {
+    e.preventDefault();
+    if (navigator.geolocation) {
+      setLocationLoading(true);
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setFormData({
+            ...formData,
+            coordinates: {
+              latitude: latitude.toString(),
+              longitude: longitude.toString(),
+            },
+          });
+          setLocationLoading(false);
+          toast.success("Fetched location");
+        },
+        (error) => {
+          setLocationLoading(false);
+          alert("Error fetching location, please refresh the page.", error);
+        }
+      );
+    } else {
+      alert("Geolocation is not supported by this browser.");
+    }
+  };
+
   return (
     <div>
       <h2 className=" text-headingColor font-bold text-[24px] leading-9 mb-10">
@@ -165,6 +208,21 @@ const Profile = ({ salonData }) => {
           ></input>
         </div>
         <div className="mb-5">
+          <label className=" text-headingColor font-bold text-[16px] leading-7 ml-1">
+            Specialiaty in:
+            <select
+              name="speciality"
+              value={formData.speciality}
+              onChange={handleInputChange}
+              className=" text-textColor ml-2 font-semibold border border-primaryColor rounded-md text-[15px] leading-7 px-4 py-3 focus:outline-none"
+            >
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="unisex">Unisex</option>
+            </select>
+          </label>
+        </div>
+        <div className="mb-5">
           <p className=" text-headingColor font-bold text-[16px] leading-7 ml-1">
             Business Phone Number*
           </p>
@@ -174,6 +232,20 @@ const Profile = ({ salonData }) => {
             value={formData.phone}
             onChange={handleInputChange}
             placeholder="Enter Active Phone Number"
+            className="w-full pr-4 py-3 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+          ></input>
+        </div>
+        <div className="mb-5">
+          <p className=" text-headingColor font-bold text-[16px] leading-7 ml-1">
+            Write something about your salon*
+          </p>
+          <input
+            type="text"
+            name="bio"
+            maxLength={250}
+            value={formData.bio}
+            onChange={handleInputChange}
+            placeholder="Write here..."
             className="w-full pr-4 py-3 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
           ></input>
         </div>
@@ -190,6 +262,29 @@ const Profile = ({ salonData }) => {
             maxLength={100}
             className="w-full pr-4 py-3 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
           ></input>
+        </div>
+        <div className="mb-5">
+          <p className=" text-headingColor font-bold text-[16px] leading-7 ml-1">
+            Salon Location*
+          </p>
+          <Tooltip title="Click to get current location" arrow>
+            <button
+              onClick={handleGetLocation}
+              className="bg-[#000] flex items-center gap-2 ml-1 py-2 px-5 rounded text-white h-fit cursor-pointer mt-1"
+              disabled={locationloading}
+            >
+              {locationloading ? (
+                <ClipLoader color="#fff" size={20} />
+              ) : (
+                <>
+                  Get Current Location
+                  <span>
+                    <CiGps />
+                  </span>
+                </>
+              )}
+            </button>
+          </Tooltip>
         </div>
 
         <div className="mb-5">

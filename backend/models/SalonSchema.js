@@ -6,22 +6,26 @@ const SalonSchema = new mongoose.Schema({
   name: { type: String, required: true },
   phone: { type: Number },
   photo: { type: String },
-  ticketPrice: { type: Array }, //change ticket price from number to array
+  coordinates: { type: Array },
   role: {
     type: String,
   },
 
-  // Fields for doctors only
-  // specialization: { type: String },
   speciality: {
-    type: Array,
+    type: String,
+    enum: ["male", "female", "unisex"],
+    default: "male",
   },
 
   services: {
     type: Array,
   },
 
-  bio: { type: String, maxLength: 50 },
+  bio: {
+    type: String,
+    maxLength: 250,
+    default: "No information provided by salon.",
+  },
   about: { type: String },
   location: { type: String },
   address: { type: String },
