@@ -3,15 +3,15 @@ import { BASE_URL } from "../../../config";
 import useFetchData from "../../hooks/useFetchData";
 import Loader from "../../Loader/Loader";
 import Error from "../../Error/Error";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import cactus from "../../assets/images/cactus.svg";
 import { CiGps } from "react-icons/ci";
 import { Tooltip } from "@mui/material";
 import { toast } from "react-toastify";
+import { authContext } from "../../context/AuthContext";
 
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
   const toRadians = (angle) => angle * (Math.PI / 180);
-
   const R = 6371; // Earth's radius in kilometers
   const dLat = toRadians(lat2 - lat1);
   const dLon = toRadians(lon2 - lon1);
@@ -31,7 +31,7 @@ const haversineDistance = (lat1, lon1, lat2, lon2) => {
 };
 const Salons = () => {
   const [query, setQuery] = useState("");
-
+  const { user: userData, role } = useContext(authContext);
   const handleSearch = () => {
     setQuery(query.trim());
   };
@@ -53,10 +53,19 @@ const Salons = () => {
 
   const [SalonsList, setSalonsList] = useState(salons);
   useEffect(() => {
-    setSalonsList(salons);
-  }, [salons]);
+    if (role === "customer") {
+      const filteredSalonList = salons.filter((item) => {
+        if (item?.speciality === "unisex") {
+          return true; // Include unisex items
+        }
+        return userData?.gender === item.speciality; // Include only if it matches the user's gender
+      });
+      setSalonsList(filteredSalonList);
+    } else {
+      setSalonsList(salons);
+    }
+  }, [salons, userData, role]);
 
-  console.log(SalonsList);
   const handleGetLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
