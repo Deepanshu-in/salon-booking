@@ -9,7 +9,7 @@ import Error from "../../Error/Error";
 import useFetchData from "../../hooks/useFetchData";
 import { useParams } from "react-router-dom";
 const SalonsDetails = () => {
-  const [tab, setTab] = useState("about");
+  const [tab, setTab] = useState("services");
   const { id } = useParams();
   const {
     data: salon,
@@ -29,12 +29,12 @@ const SalonsDetails = () => {
   } = salon;
   return (
     <section>
-      <div className="max-w-[1170px] px-4 mx-auto">
+      <div className="px-4">
         {loading && <Loader />}
         {error && <Error />}
         {!loading && !error && (
-          <div className="grid md:grid-cols-3 gap-[50px]">
-            <div className="md:col-span-2">
+          <div className="flex justify-center  gap-[10px]">
+            <div className="w-[900px]">
               <div className="flex flex-col md:flex-row items-center gap-5">
                 <figure className="max-w-[200px] max-h-[200px]">
                   <img src={photo} className="w-full rounded-md h-[180px]" />
@@ -62,13 +62,22 @@ const SalonsDetails = () => {
                 </div>
               </div>
 
-              <div className="mt-[50px] border-b border-solid border-[#0066ff34]">
+              <div className="mt-[50px] flex flex-col sm:flex-row  gap-1">
+                <button
+                  onClick={() => setTab("services")}
+                  className={`${
+                    tab === "services" &&
+                    "border-b-2 border-solid border-primaryColor"
+                  } border border-solid rounded-md border-[#0066ff34] py-2 px-5 text-[16px] leading-7 text-headingColor font-semibold`}
+                >
+                  Services
+                </button>
                 <button
                   onClick={() => setTab("about")}
                   className={`${
                     tab === "about" &&
                     "border-b-2 border-solid border-primaryColor"
-                  } py-2 px-5 mr-5 text-[16px] leading-7 text-headingColor font-semibold`}
+                  } border border-solid rounded-md border-[#0066ff34] py-2 px-5 text-[16px] leading-7 text-headingColor font-semibold`}
                 >
                   About
                 </button>
@@ -77,7 +86,7 @@ const SalonsDetails = () => {
                   className={`${
                     tab === "feedback" &&
                     "border-solid border-b-2 border-primaryColor"
-                  } py-2 px-5 mr-5 text-[16px] leading-7 text-headingColor font-semibold`}
+                  } border border-solid rounded-md border-[#0066ff34] py-2 px-5 text-[16px] leading-7 text-headingColor font-semibold`}
                 >
                   Feedback
                 </button>
@@ -94,14 +103,14 @@ const SalonsDetails = () => {
                 {tab === "feedback" && (
                   <Feedback reviews={reviews} totalRating={totalRating} />
                 )}
+                {tab === "services" && (
+                  <SidePanel
+                    salonId={id}
+                    services={services}
+                    timeSlots={timeSlots}
+                  />
+                )}
               </div>
-            </div>
-            <div>
-              <SidePanel
-                salonId={id}
-                services={services}
-                timeSlots={timeSlots}
-              />
             </div>
           </div>
         )}

@@ -2,15 +2,17 @@
 /* eslint-disable react/prop-types */
 import convertTime from "../../utils/convertTime";
 import Datepicker from "tailwind-datepicker-react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 import HashLoader from "react-spinners/HashLoader";
 import { BsArrowRight, BsDashCircle, BsPlusCircle } from "react-icons/bs";
 import axios from "axios";
 import { BASE_URL, token } from "../../../config";
 import { toast } from "react-toastify";
+import { authContext } from "../../context/AuthContext";
 
 const SidePanel = ({ salonId, services, timeSlots }) => {
+  const { user: userData } = useContext(authContext);
   const currentDate = new Date(); // Get the current date
   const previousDay = new Date(currentDate); // Create a new Date object based on the current date
   const maxDate = new Date(currentDate); // Create a new Date object based on the current date
@@ -70,6 +72,11 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
   };
 
   const checkOutHandler = async (amount) => {
+    if (!userData) {
+      toast.error("Login/Signup first to book");
+      return;
+    }
+
     if (amount === 0) {
       toast.error("Amount cannot be 0");
       return;
