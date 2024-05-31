@@ -25,7 +25,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     theme: {
       disabledText: "bg-gray-300 dark:bg-gray-500 m-[2px]",
     },
-    datepickerClassNames: "md:top-[200px] md:right-[120px] top-[1100px]",
+    datepickerClassNames: "md:top-[700px] top-[1100px]",
     defaultDate: null,
     inputPlaceholderProp: "Select Date",
   };
@@ -52,7 +52,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     );
 
     if (serviceIndex !== -1) {
-      const updatedServices = [...servicesWithAdded]; // Copy the existing array
+      const updatedServices = [...servicesWithAdded];
 
       const service = updatedServices[serviceIndex];
 
@@ -61,13 +61,8 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
       } else {
         setCartPrice((prev) => prev - Number(service.discountedPrice));
       }
-
-      // Toggle the isAdded property of the service
       updatedServices[serviceIndex] = { ...service, isAdded: !service.isAdded };
-
-      // Update the state with the modified array
       setServicesWithAdded(updatedServices);
-      // console.log(servicesWithAdded);
     }
   };
 
@@ -100,21 +95,18 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
       if (!res.ok) {
         throw new Error(response.message + " Please try again later !");
       }
-      // if (response.order.id) {
-      //   window.location.href = response.order.id;
-      // }
       const options = {
         key,
         amount: order.amount,
         currency: "INR",
         name: "StylesAtEase",
-        description: "Test Transaction",
-        image: "https://example.com/your_logo",
+        description: "Transaction for salon appointment",
+        image: "https://www.stylesatease.tech/assets/logo-BFVTEM-H.png",
         order_id: order.id,
         callback_url: `${BASE_URL}/payments/paymentVerification`,
         prefill: {
-          name: "Deepanshu Gupta",
-          email: "dipanshugupta921@gmail.com",
+          name: userData.name,
+          email: userData.email,
           contact: "9507256359",
         },
         notes: {
@@ -140,6 +132,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
   const handleClose = (state) => {
     setShow(state);
   };
+  console.log(userData);
   return (
     <div className="shadow-panelShadow p-3 lg:p-5 md:w-[400px] w-full rounded-md items-center">
       <div className="flex flex-col gap-4">

@@ -1,5 +1,4 @@
 import signupImg from "../assets/images/signup.gif";
-// import avatar from "../assets/images/avatar-icon.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
@@ -19,6 +18,7 @@ const Signup = () => {
     photo: selectedPhoto,
     gender: "male",
     role: "customer",
+    phone: "",
   });
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,7 +35,12 @@ const Signup = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     setLoading(true);
-
+    console.log(formData);
+    if (formData.phone.length != 10) {
+      toast.error("Check your phone number");
+      setLoading(false);
+      return false;
+    }
     try {
       const res = await fetch(`${BASE_URL}/auth/register`, {
         method: "post",
@@ -45,12 +50,13 @@ const Signup = () => {
         body: JSON.stringify(formData),
       });
 
-      const { message } = await res.json();
+      const result = await res.json();
+      console.log(result);
       if (!res.ok) {
-        throw new Error(message);
+        throw new Error(result.message);
       }
       setLoading(false);
-      toast.success(message);
+      toast.success(result.message);
       navigate("/login");
     } catch (error) {
       toast.error(error.message);
@@ -99,6 +105,18 @@ const Signup = () => {
               </div>
               <div className="mb-5">
                 <input
+                  type="number"
+                  placeholder="Mobile Number"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  maxLength={10}
+                  className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                  required
+                />
+              </div>
+              <div className="mb-5">
+                <input
                   type="password"
                   placeholder="Password"
                   name="password"
@@ -117,6 +135,7 @@ const Signup = () => {
                     value={formData.role}
                     onChange={handleInputChange}
                     className=" text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                    required
                   >
                     <option value="customer">Customer</option>
                     <option value="salon">Salon</option>
@@ -130,6 +149,7 @@ const Signup = () => {
                     value={formData.gender}
                     onChange={handleInputChange}
                     className=" text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                    required
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
