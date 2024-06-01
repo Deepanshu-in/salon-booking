@@ -78,9 +78,13 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     }
     try {
       setLoading(true);
+
+      // Fetch the Razorpay key
       const {
         data: { key },
       } = await axios.get(`${BASE_URL}/getkey`);
+
+      // Fetch the order details
       const res = await fetch(`${BASE_URL}/payments/checkout/${salonId}`, {
         method: "POST",
         headers: {
@@ -89,12 +93,23 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         },
         body: JSON.stringify({ amount }),
       });
+
       const response = await res.json();
       const { order } = response;
-      console.log(response);
+
       if (!res.ok) {
         throw new Error(response.message + " Please try again later !");
       }
+
+      // Check the prefill data
+      const prefillData = {
+        name: userData.name,
+        email: userData.email,
+        contact: "9507256359",
+      };
+      console.log("Prefill Data:", prefillData);
+
+      // Razorpay options
       const options = {
         key,
         amount: order.amount,
@@ -104,20 +119,19 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         image: "https://www.stylesatease.tech/assets/logo-BFVTEM-H.png",
         order_id: order.id,
         callback_url: `${BASE_URL}/payments/paymentVerification`,
-        prefill: {
-          name: `${userData.name}`,
-          email: `${userData.email}`,
-          contact: "9507256359",
-        },
+        prefill: prefillData,
         notes: {
-          address: "Kharar,Punjab",
+          address: "Kharar, Punjab",
+          name: userData.name,
         },
         theme: {
           color: "#3399cc",
         },
       };
+
       const razor = new window.Razorpay(options);
       razor.open();
+
       setLoading(false);
     } catch (error) {
       toast.error(error.message);

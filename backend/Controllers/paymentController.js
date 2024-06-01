@@ -59,7 +59,7 @@ export const paymentVerification = async (req, res) => {
       await booking.save();
 
       res.redirect(
-        `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
+        `https://www.stylesatease.tech/paymentsuccess?reference=${razorpay_payment_id}`
       );
     } else {
       res.status(400).json({
