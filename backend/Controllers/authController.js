@@ -19,20 +19,22 @@ export const register = async (req, res) => {
     let user = null;
 
     if (role === "customer") {
-      user = await User.findOne({ email });
+      user = await User.findOne({ $or: [{ email }, { phone }] });
     } else if (role === "salon") {
-      user = await Salon.findOne({ email });
+      user = await Salon.findOne({ $or: [{ email }, { phone }] });
     }
 
-    //check is user already exists
     if (user) {
-      return res.status(400).json({ message: "User already exists" });
+      return res
+        .status(400)
+        .json({ message: "User already exists,Please Login" });
     }
 
-    //hash password
+    // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
 
+    // Create new user based on role
     if (role === "customer") {
       user = new User({
         name,
@@ -43,9 +45,7 @@ export const register = async (req, res) => {
         phone,
         role,
       });
-    }
-
-    if (role === "salon") {
+    } else if (role === "salon") {
       user = new Salon({
         name,
         email,
@@ -55,14 +55,19 @@ export const register = async (req, res) => {
         role,
       });
     }
+
+    // Save the new user to the database
     await user.save();
+
+    // Send success response
     res
       .status(200)
-      .json({ success: true, message: "User Successfully Created" });
+      .json({ success: true, message: "User successfully created" });
   } catch (error) {
+    // Handle any errors
     res.status(500).json({
       success: false,
-      message: "Internal Server error, Try Again ",
+      message: "Internal Server Error, Please Try Again",
       error: error.message,
     });
   }

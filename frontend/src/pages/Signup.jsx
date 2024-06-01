@@ -1,21 +1,21 @@
 import signupImg from "../assets/images/signup.gif";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import uploadImageToCloudinary from "../utils/uploadCloudinary";
+// import uploadImageToCloudinary from "../utils/uploadCloudinary";
 import { BASE_URL } from "../../config";
 import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader";
 
 const Signup = () => {
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [previewUrl, setPreviewUrl] = useState("");
+  // const [selectedPhoto, setSelectedPhoto] = useState(null);
+  // const [previewUrl, setPreviewUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    photo: selectedPhoto,
+    photo: null,
     gender: "male",
     role: "customer",
     phone: "",
@@ -24,13 +24,13 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileInputChange = async (event) => {
-    const file = event.target.files[0];
-    const data = await uploadImageToCloudinary(file);
-    setPreviewUrl(data.url);
-    setSelectedPhoto(data.url);
-    setFormData({ ...formData, photo: data.url });
-  };
+  // const handleFileInputChange = async (event) => {
+  //   const file = event.target.files[0];
+  //   const data = await uploadImageToCloudinary(file);
+  //   setPreviewUrl(data.url);
+  //   setSelectedPhoto(data.url);
+  //   setFormData({ ...formData, photo: data.url });
+  // };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -158,7 +158,7 @@ const Signup = () => {
                 </label>
               </div>
 
-              <div className="mb-5 flex items-center gap-3">
+              {/* <div className="mb-5 flex items-center gap-3">
                 {selectedPhoto && (
                   <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
                     <img src={previewUrl} className="w-full rounded-full"></img>
@@ -180,7 +180,7 @@ const Signup = () => {
                     Upload Photo
                   </label>
                 </div>
-              </div>
+              </div> */}
               <div className="mt-7">
                 <button
                   disabled={loading && true}

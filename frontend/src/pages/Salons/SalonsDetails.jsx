@@ -8,6 +8,7 @@ import Loader from "../../Loader/Loader";
 import Error from "../../Error/Error";
 import useFetchData from "../../hooks/useFetchData";
 import { useParams } from "react-router-dom";
+import Services from "./Services";
 const SalonsDetails = () => {
   const [tab, setTab] = useState("services");
   const { id } = useParams();

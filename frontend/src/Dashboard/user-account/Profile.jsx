@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import uploadImageToCloudinary from "../../utils/uploadCloudinary";
+// import uploadImageToCloudinary from "../../utils/uploadCloudinary";
 import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader";
 import { BASE_URL } from "../../../config";
 import { token } from "../../../config";
 
 const Profile = ({ user }) => {
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  // const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -32,12 +32,12 @@ const Profile = ({ user }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleFileInputChange = async (event) => {
-    const file = event.target.files[0];
-    const data = await uploadImageToCloudinary(file);
-    setSelectedPhoto(data.url);
-    setFormData({ ...formData, photo: data.url });
-  };
+  // const handleFileInputChange = async (event) => {
+  //   const file = event.target.files[0];
+  //   const data = await uploadImageToCloudinary(file);
+  //   setSelectedPhoto(data.url);
+  //   setFormData({ ...formData, photo: data.url });
+  // };
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -118,11 +118,11 @@ const Profile = ({ user }) => {
           </label>
         </div>
 
-        <div className="mb-5 flex items-center gap-3">
+        {/* <div className="mb-5 flex items-center gap-3">
           {formData.photo && (
             <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center overflow-hidden">
               <img src={formData.photo} className="w-full rounded-full"></img>
-            </figure>
+            </figure> 
           )}
           <div className="relative w-[130px] h-[50px]">
             <input
@@ -140,7 +140,7 @@ const Profile = ({ user }) => {
               {selectedPhoto ? selectedPhoto.name : "Upload Photo"}
             </label>
           </div>
-        </div>
+        </div> */}
         <div className="mt-7">
           <button
             disabled={loading && true}

@@ -105,8 +105,8 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         order_id: order.id,
         callback_url: `${BASE_URL}/payments/paymentVerification`,
         prefill: {
-          name: userData.name,
-          email: userData.email,
+          name: `${userData.name}`,
+          email: `${userData.email}`,
           contact: "9507256359",
         },
         notes: {
