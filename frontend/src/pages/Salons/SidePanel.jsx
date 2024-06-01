@@ -96,6 +96,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
 
       const response = await res.json();
       const { order } = response;
+      console.log(order);
 
       if (!res.ok) {
         throw new Error(response.message + " Please try again later !");
@@ -105,7 +106,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
       const prefillData = {
         name: userData.name,
         email: userData.email,
-        contact: "9507256359",
+        contact: userData?.phone,
       };
       console.log("Prefill Data:", prefillData);
 
@@ -116,7 +117,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
         currency: "INR",
         name: "StylesAtEase",
         description: "Transaction for salon appointment",
-        image: "https://www.stylesatease.tech/assets/logo-BFVTEM-H.png",
+        image: " ",
         order_id: order.id,
         callback_url: `${BASE_URL}/payments/paymentVerification`,
         prefill: prefillData,
@@ -146,7 +147,6 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
   const handleClose = (state) => {
     setShow(state);
   };
-  console.log(userData);
   return (
     <div className="shadow-panelShadow p-3 lg:p-5 md:w-[400px] w-full rounded-md items-center">
       <div className="flex flex-col gap-4">
