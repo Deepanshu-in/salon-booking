@@ -14,7 +14,6 @@ const SanaAI = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
   const handleUserInput = (value) => {
-    console.log(value);
     setUserInput(value);
   };
   const genAI = new GoogleGenerativeAI(import.meta.env.VITE_API_KEY);
@@ -40,9 +39,9 @@ const SanaAI = () => {
   };
 
   return (
-    <div style={{ position: "relative", height: "500px" }} className="p-4">
+    <div style={{ position: "relative", height: "700px" }} className="p-4">
       <MainContainer className=" rounded-md">
-        <ChatContainer>
+        <ChatContainer className="pt-2">
           <MessageList>
             {chatHistory.map((elt, i) => (
               <Message
@@ -51,7 +50,6 @@ const SanaAI = () => {
                   message: elt.message,
                   sender: elt.type,
                   sentTime: "just now",
-
                   direction: elt.type === "user" ? "outgoing" : "incoming",
                 }}
               />
