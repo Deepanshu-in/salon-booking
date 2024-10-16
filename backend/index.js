@@ -8,6 +8,7 @@ import userRoute from "./Routes/user.js";
 import salonRoute from "./Routes/salon.js";
 import reviewRoute from "./Routes/review.js";
 import paymentRoute from "./Routes/payment.js";
+import sanaAiRoute from "./Routes/sana.js";
 import Razorpay from "razorpay";
 
 dotenv.config();
@@ -49,6 +50,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/salons", salonRoute);
 app.use("/api/v1/reviews", reviewRoute);
 app.use("/api/v1/payments", paymentRoute);
+app.use("/api/v1/sanaAi", sanaAiRoute);
 app.get("/api/v1/getkey", (req, res) =>
   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
 );

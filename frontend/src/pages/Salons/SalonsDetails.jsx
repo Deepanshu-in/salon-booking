@@ -93,7 +93,7 @@ const SalonsDetails = () => {
                 </button>
               </div>
 
-              <div className="mt-[50px]">
+              <div className="mt-[20px]">
                 {tab === "about" && (
                   <SalonAbout
                     name={name}

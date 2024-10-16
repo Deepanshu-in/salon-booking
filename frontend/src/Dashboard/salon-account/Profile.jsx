@@ -23,7 +23,9 @@ const Profile = ({ salonData }) => {
     bio: "",
     coordinates: [{ latitude: "", longitude: "" }],
     timeSlots: [{ startTime: "10:00", endTime: "10:30" }],
-    services: [{ item: "", actualPrice: "", discountedPrice: "" }],
+    services: [
+      { item: "", actualPrice: "", discountedPrice: "", category: "" },
+    ],
   });
 
   useEffect(() => {
@@ -42,7 +44,7 @@ const Profile = ({ salonData }) => {
           { startTime: "10:00", endTime: "10:30" },
         ],
         services: salonData.services || [
-          { item: "", actualPrice: "", discountedPrice: "" },
+          { item: "", actualPrice: "", discountedPrice: "", category: "" },
         ],
       });
     }
@@ -115,6 +117,7 @@ const Profile = ({ salonData }) => {
       item: "",
       actualPrice: "",
       discountedPrice: "",
+      category: "",
     });
   };
 
@@ -320,7 +323,7 @@ const Profile = ({ salonData }) => {
           </p>
           {formData.services?.map((item, index) => (
             <div key={index}>
-              <div className="grid md:grid-cols-4 grid-cols-2  gap-2 md:gap-5 justify-center items-center">
+              <div className="grid md:grid-cols-4 grid-cols-2 gap-2 md:gap-5 justify-center items-center">
                 <div>
                   <p className=" text-green-400 font-bold text-[16px] leading-7 ml-1">
                     Services
@@ -331,7 +334,7 @@ const Profile = ({ salonData }) => {
                     name="item"
                     placeholder="eg:Haircut"
                     onChange={(e) => handlePriceChange(e, index)}
-                    className="w-full pr-4 py-3 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                    className="w-full py-2 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   ></input>
                 </div>
                 <div>
@@ -344,7 +347,7 @@ const Profile = ({ salonData }) => {
                     placeholder="eg:₹100"
                     name="actualPrice"
                     onChange={(e) => handlePriceChange(e, index)}
-                    className="w-full pr-4 py-3 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                    className="w-full py-2 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   ></input>
                 </div>
                 <div>
@@ -357,12 +360,26 @@ const Profile = ({ salonData }) => {
                     placeholder="eg:₹80"
                     name="discountedPrice"
                     onChange={(e) => handlePriceChange(e, index)}
-                    className="w-full pr-4 py-3 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                    className="w-full py-2 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   ></input>
                 </div>
+                <label className=" text-green-400 font-bold text-[16px] leading-7 ml-1">
+                  Specialiaty in:
+                  <select
+                    name="category"
+                    value={item.category}
+                    onChange={(e) => handlePriceChange(e, index)}
+                    className="w-full py-2 px-2 mt-2 rounded-md border border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                  >
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="unisex">Unisex</option>
+                  </select>
+                </label>
                 <button
                   onClick={(e) => deletePriceData(e, index)}
-                  className="bg-red-600 md:mt-[26px] flex justify-center w-8 h-8 items-center rounded-full text-white text-[18px] cursor-pointer "
+                  className="bg-red-600 flex justify-center w-8 h-8 items-center rounded-full text-white text-[18px] cursor-pointer "
                 >
                   <AiOutlineDelete />
                 </button>

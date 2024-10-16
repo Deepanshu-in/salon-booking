@@ -148,7 +148,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
     setShow(state);
   };
   return (
-    <div className="shadow-panelShadow p-3 lg:p-5 md:w-[400px] w-full rounded-md items-center">
+    <div className="shadow-panelShadow p-3 lg:p-5 md:w-[800px] w-full rounded-md items-center">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
           <p className="text_para mt-0 font-semibold">Choose your Services :</p>
@@ -166,7 +166,7 @@ const SidePanel = ({ salonId, services, timeSlots }) => {
                     <h3 className="line-through text-textColor">
                       ₹{service.actualPrice}
                     </h3>
-                    <h4 className=" text-green-500">
+                    <h4 className="text-green-500">
                       {(
                         (100 / service.actualPrice) *
                         (service.actualPrice - service.discountedPrice)

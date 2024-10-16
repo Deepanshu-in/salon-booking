@@ -21,6 +21,9 @@
   .btn {
     @apply bg-primaryColor py-[15px] px-[35px] rounded-[50px] text-white font-[600] mt-[38px];
   }
+  .btnCart {
+    @apply bg-primaryColor py-[5px] px-[25px] rounded-[20px] text-white font-[400];
+  }
   .heading {
     @apply text-[44px] leading-[54px] font-[700] text-headingColor;
   }

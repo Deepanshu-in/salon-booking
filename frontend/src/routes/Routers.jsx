@@ -11,6 +11,7 @@ import MyAccount from "../Dashboard/user-account/MyAccount";
 import Dashboard from "../Dashboard/salon-account/Dashboard";
 import PaymentSuccess from "../pages/PaymentSuccess";
 import ProtectedRoutes from "./ProtectedRoutes";
+import SanaAI from "../pages/SanaAI";
 import { Routes, Route } from "react-router-dom";
 import Terms from "../pages/Terms";
 import Privacy from "../pages/Privacy";
@@ -31,6 +32,7 @@ const Routers = () => {
         <Route path="/terms-and-condition" element={<Terms />} />
         <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess />} />
+        <Route path="/sana" element={<SanaAI />} />
         <Route
           path="/users/profile/me"
           element={
