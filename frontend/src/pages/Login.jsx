@@ -4,7 +4,6 @@ import { BASE_URL } from "../../config";
 import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader";
 import { authContext } from "../context/AuthContext";
-import ChatBotFloater from "./ChatBotFloater";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);

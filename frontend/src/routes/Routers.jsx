@@ -32,7 +32,14 @@ const Routers = () => {
         <Route path="/terms-and-condition" element={<Terms />} />
         <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/paymentsuccess" element={<PaymentSuccess />} />
-        <Route path="/sana" element={<SanaAI />} />
+        <Route
+          path="/sana"
+          element={
+            <ProtectedRoutes allowedRoles={["customer", "salon"]}>
+              <SanaAI />
+            </ProtectedRoutes>
+          }
+        />
         <Route
           path="/users/profile/me"
           element={

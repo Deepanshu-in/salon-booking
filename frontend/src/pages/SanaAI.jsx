@@ -7,12 +7,8 @@ import {
   MessageInput,
 } from "@chatscope/chat-ui-kit-react";
 import { useState } from "react";
-import {
-  GoogleGenerativeAI,
-  HarmCategory,
-  HarmBlockThreshold,
-} from "@google/generative-ai";
-
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { authContext } from "../context/AuthContext";
 const SanaAI = () => {
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
@@ -75,7 +71,7 @@ const SanaAI = () => {
   };
 
   return (
-    <div style={{ position: "relative", height: "700px" }} className="p-4">
+    <div className="p-4 h-[700px]">
       <MainContainer className="rounded-md">
         <ChatContainer className="pt-2">
           <MessageList>
