@@ -9,6 +9,7 @@ import { CiGps } from "react-icons/ci";
 import { Tooltip } from "@mui/material";
 import { toast } from "react-toastify";
 import { authContext } from "../../context/AuthContext";
+import ChatBotFloater from "../ChatBotFloater";
 
 const haversineDistance = (lat1, lon1, lat2, lon2) => {
   const toRadians = (angle) => angle * (Math.PI / 180);

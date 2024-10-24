@@ -3,7 +3,7 @@ import heroimg02 from "../assets/images/heroimg02.jpg";
 import heroimg03 from "../assets/images/heroimg03.jpg";
 import { Link } from "react-router-dom";
 import { AiOutlineArrowRight } from "react-icons/ai";
-
+import ChatBotFloater from "./ChatBotFloater";
 const Home = () => {
   return (
     <>
@@ -62,7 +62,6 @@ const Home = () => {
         </section>
       </>
       {/* hero section ends */}
-
       {/* <section>
         <div className="container">
           <div className="lg:w-[470px] mx-auto">
